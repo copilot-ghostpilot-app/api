@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/uttarasridhar/api/tweets"
+	"github.com/copilot-ghostpilot-app/api/tweets"
 
 	"github.com/gorilla/mux"
 )

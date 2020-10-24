@@ -10,9 +10,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/uttarasridhar/api/postgres"
-	"github.com/uttarasridhar/api/server"
-	"github.com/uttarasridhar/api/tweets"
+	"github.com/copilot-ghostpilot-app/api/postgres"
+	"github.com/copilot-ghostpilot-app/api/server"
+	"github.com/copilot-ghostpilot-app/api/tweets"
 
 	"github.com/gorilla/mux"
 )
