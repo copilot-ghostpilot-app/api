@@ -45,10 +45,10 @@ func (s *Server) handleStoreTweets() http.HandlerFunc {
 		}
 		if err := s.TC.StoreTweet(data); err != nil {
 			log.Printf("ERROR: server: store tweet %+v: %v\n", data, err)
-			http.Error(w, fmt.Sprintf("store tweet for username %s and id %s", data.Username, data.Id), http.StatusInternalServerError)
+			http.Error(w, fmt.Sprintf("store tweet for username %s and id %s", data.Username, data.ID), http.StatusInternalServerError)
 			return
 		}
-		log.Printf("INFO: server: stored tweet for username %s and id %s\n", data.Username, data.Id)
+		log.Printf("INFO: server: stored tweet for username %s and id %s\n", data.Username, data.ID)
 		w.WriteHeader(http.StatusOK)
 	}
 }
@@ -67,7 +67,7 @@ func (s *Server) handleGetEmojiResults() http.HandlerFunc {
 		}{
 			EmojiResults: results,
 		})
-		log.Printf("results=%s", results)
+		log.Printf("results=%v", results)
 		if err != nil {
 			log.Printf("ERROR: encode get emoji results payload: %v", err)
 			http.Error(w, "encode JSON payload", http.StatusInternalServerError)

@@ -58,8 +58,8 @@ func Run() error {
 		Addr: *addr,
 		Handler: &server.Server{
 			Router: mux.NewRouter(),
-			TC: tc,
-			EC: ec,
+			TC:     tc,
+			EC:     ec,
 		},
 		WriteTimeout: time.Second * 15,
 		ReadTimeout:  time.Second * 15,
