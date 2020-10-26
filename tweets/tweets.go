@@ -36,10 +36,10 @@ type tweetsController struct {
 }
 
 type TweetMetdata struct {
-	Media       []string `json:"media"`
-	HashTags    []string `json:"hashtags"`
-	CreatedAt   string   `json:"created_date"`
-	RetweetData string   `json:"retweet_data"`
+	Media       string `json:"media"`
+	HashTags    string `json:"hashtags"`
+	CreatedAt   string `json:"created_date"`
+	RetweetData string `json:"retweet_data"`
 }
 
 type Tweet struct {
