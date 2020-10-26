@@ -2,9 +2,9 @@
 package tweets
 
 import (
-  "encoding/json"
+	"encoding/json"
 	"fmt"
-  "log"
+	"log"
 	"regexp"
 	"strconv"
 	"strings"
@@ -36,29 +36,29 @@ type tweetsController struct {
 }
 
 type TweetMetdata struct {
-	Media []string `json:"media"`
-	HashTags []string `json:"hashtags"`
-	CreatedAt string `json:"created_date"`
-	RetweetData string `json:"retweet_data"`
+	Media       []string `json:"media"`
+	HashTags    []string `json:"hashtags"`
+	CreatedAt   string   `json:"created_date"`
+	RetweetData string   `json:"retweet_data"`
 }
 
 type Tweet struct {
-	Id string `json:"id"`
-	Username string `json:"username"`
-	TweetContent string `json:"tweet_content"`
-	Metadata TweetMetdata `json:"metadata"`
+	ID           string       `json:"id"`
+	Username     string       `json:"username"`
+	TweetContent string       `json:"tweet_content"`
+	Metadata     TweetMetdata `json:"metadata"`
 }
 
 func (tc *tweetsController) StoreTweet(tweet Tweet) error {
-  var metadata string
-  tm, err := json.Marshal(tweet.Metadata)
-  if err != nil {
-    log.Printf("INFO: tweets: Unable to marshal tweet metadata, id=%s, metadata=%s", tweet.Id, tweet.Metadata)
-  } else {
-    metadata = string(tm)
-  }
+	var metadata string
+	tm, err := json.Marshal(tweet.Metadata)
+	if err != nil {
+		log.Printf("INFO: tweets: Unable to marshal tweet metadata, id=%s, metadata=%s", tweet.ID, tweet.Metadata)
+	} else {
+		metadata = string(tm)
+	}
 
-	if err := tc.db.StoreTweet(tweet.Id, tweet.Username, tweet.TweetContent, tweet.Metadata.CreatedAt, metadata); err != nil {
+	if err := tc.db.StoreTweet(tweet.ID, tweet.Username, tweet.TweetContent, tweet.Metadata.CreatedAt, metadata); err != nil {
 		return err
 	}
 	emojis, err := tc.convertTweetToEmojisList(tweet.TweetContent)
@@ -67,9 +67,9 @@ func (tc *tweetsController) StoreTweet(tweet Tweet) error {
 		return err
 	}
 	for _, emoji := range emojis {
-		err := tc.db.StoreEmoji(tweet.Id, emoji)
+		err := tc.db.StoreEmoji(tweet.ID, emoji)
 		if err != nil {
-			log.Printf("ERROR: tweets: id=%s emoji=%s: %v\n", tweet.Id, emoji, err)
+			log.Printf("ERROR: tweets: id=%s emoji=%s: %v\n", tweet.ID, emoji, err)
 		}
 	}
 	return nil
