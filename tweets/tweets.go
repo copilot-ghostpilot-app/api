@@ -19,7 +19,7 @@ const (
 	rangeMax2 = 127569
 	rangeMin3 = 169
 	rangeMax3 = 174
-	rangeMin4 = 8205
+	rangeMin4 = 8252
 	rangeMax4 = 12953
 )
 
@@ -60,8 +60,16 @@ func (tc *tweetsController) StoreTweet(tweet Tweet) error {
 		metadata = string(tm)
 	}
 
+	exist, err := tc.db.ExistTweet(tweet.ID)
+	if err != nil {
+		return fmt.Errorf("check if tweet with ID %s exists: %w", tweet.ID, err)
+	}
+	if exist {
+		return nil
+	}
+
 	if err := tc.db.StoreTweet(tweet.ID, tweet.Username, tweet.TweetContent, tweet.Metadata.CreatedAt, metadata); err != nil {
-		return err
+		return fmt.Errorf("store tweet with ID %s: %w", tweet.ID, err)
 	}
 	emojis, err := tc.convertTweetToEmojisList(tweet.TweetContent)
 	if err != nil {

@@ -22,6 +22,7 @@ type partialQuery func(row eachRowFn) error
 // DB is the interface for all the operations allowed on tweets.
 type DB interface {
 	StoreTweet(id, username, tweetContent, createdAt, metadata string) error
+	ExistTweet(id string) (bool, error)
 	StoreEmoji(id, emoji string) error
 	EmojiResults() partialQuery
 }
@@ -41,6 +42,18 @@ type execQuerier interface {
 
 type sqlDB struct {
 	conn execQuerier
+}
+
+func (db *sqlDB) ExistTweet(id string) (bool, error) {
+	rows, err := db.conn.Query(`SELECT * FROM tweets WHERE id=$1`, id)
+	if err != nil {
+		return false, fmt.Errorf("tweets: check if tweet id=%s exists: err=%v", id, err)
+	}
+	defer rows.Close()
+	for rows.Next() {
+		return true, nil
+	}
+	return false, nil
 }
 
 // Store a tweet in the database.

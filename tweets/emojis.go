@@ -18,7 +18,7 @@ type emojisController struct {
 // EmojiCount is a pair of a emoji and the count of occurrences of emoji.
 type EmojiCount struct {
 	Emoji string `json:"emoji"`
-	Count int `json:"count"`
+	Count int    `json:"count"`
 }
 
 // EmojiResults returns the pair of emojis and counts.
