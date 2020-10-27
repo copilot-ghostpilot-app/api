@@ -18,7 +18,7 @@ class API(object):
         return response
 
 if __name__ == "__main__":
-    _payload = {'id': '1319721334776029184', 'username': 'efekarakus', 'tweet_content': ' Copilot v0.5.0 is released!! \U0001f973\n Manage scheduled jobs with the new "copilot job" cmds.\n Use an existing image with the new "location" field.\n Minor improvements: backend services no longer require ports, and deletions don\'t need a profile!\n\nhttps://t.co/fME5yysOPT', 'metadata': {'media': None, 'hashtags': [], 'created_date': 'Fri Oct 23 19:24:20 +0000 2020', 'retweet_data': None}}
+    _payload = {"id": "1320825299236325122", "username": "bvtujo", "tweet_content": "So fun to hang out with Adam and @brentContained \U0001f9c3 talking about the new Scheduled Jobs feature in #awscopilot \ud83d\udc7b\u2620\ufe0f\ud83e\udd16\ud83e\udd20\ud83c\udf83 https://t.co/MPmXuDg3Xn", "metadata": {"media": "None", "hashtags": "[Hashtag(Text='awscopilot')]", "created_date": "Mon Oct 26 20:31:05 +0000 2020", "retweet_data": "None"}}
     write_api = API.post_api(payload=json.dumps(_payload).encode("utf-8"))
     print(write_api)
 
