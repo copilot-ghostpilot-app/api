@@ -8,6 +8,8 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/google/uuid"
 )
 
 const (
@@ -67,7 +69,11 @@ func (tc *tweetsController) StoreTweet(tweet Tweet) error {
 		return err
 	}
 	for _, emoji := range emojis {
-		err := tc.db.StoreEmoji(tweet.ID, emoji)
+		id, err := uuid.NewRandom()
+		if err != nil {
+			log.Printf("ERROR: generate uuid for id=%s emoji=%s: %v\n", tweet.ID, emoji, err)
+		}
+		err = tc.db.StoreEmoji(tweet.ID+id.String(), emoji)
 		if err != nil {
 			log.Printf("ERROR: tweets: id=%s emoji=%s: %v\n", tweet.ID, emoji, err)
 		}
